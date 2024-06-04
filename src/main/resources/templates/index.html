@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Competitions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<header class="bg-primary text-white text-center py-3 mb-4">
+    <div class="container">
+        <h1>Sports Competition</h1>
+        <nav class="nav justify-content-center">
+            <a class="nav-link text-white" th:href="@{/}">Home</a>
+            <span th:if="${loggedIn != null}">
+                    <a class="nav-link text-white" th:href="@{/add}">Add Competition</a>
+                    <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+                </span>
+            <span th:if="${loggedIn == null}">
+                    <a class="nav-link text-white" th:href="@{/login}">Login</a>
+                </span>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <h2 class="text-center my-4">Competitions</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Result</th>
+            <th th:if="${loggedIn != null}">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="competition : ${competitions}">
+            <td th:text="${competition.name}"></td>
+            <td th:text="${competition.location}"></td>
+            <td th:text="${competition.date}"></td>
+            <td th:text="${competition.result}"></td>
+            <td th:if="${loggedIn != null}">
+                <form th:action="@{/delete}" method="post" style="display: inline;">
+                    <input type="hidden" name="id" th:value="${competition.id}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a th:href="@{'/edit?id=' + ${competition.id}}" class="btn btn-warning">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer class="footer bg-light text-center py-3 mt-4">
+    <div class="container">
+        <p>&copy; 2024 Sports Competition</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
