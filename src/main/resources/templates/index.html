@@ -11,11 +11,11 @@
         <h1>Sports Competition</h1>
         <nav class="nav justify-content-center">
             <a class="nav-link text-white" th:href="@{/}">Home</a>
-            <span th:if="${loggedIn != null}">
+            <span th:if="${session.loggedIn != null}">
                     <a class="nav-link text-white" th:href="@{/add}">Add Competition</a>
                     <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
                 </span>
-            <span th:if="${loggedIn == null}">
+            <span th:if="${session.loggedIn == null}">
                     <a class="nav-link text-white" th:href="@{/login}">Login</a>
                 </span>
         </nav>
@@ -30,7 +30,7 @@
             <th>Location</th>
             <th>Date</th>
             <th>Result</th>
-            <th th:if="${loggedIn != null}">Actions</th>
+            <th th:if="${session.loggedIn != null}">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
             <td th:text="${competition.location}"></td>
             <td th:text="${competition.date}"></td>
             <td th:text="${competition.result}"></td>
-            <td th:if="${loggedIn != null}">
+            <td th:if="${session.loggedIn != null}">
                 <form th:action="@{/delete}" method="post" style="display: inline;">
                     <input type="hidden" name="id" th:value="${competition.id}">
                     <button type="submit" class="btn btn-danger">Delete</button>
